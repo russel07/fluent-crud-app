@@ -1,15 +1,16 @@
 <template>
-  <el-dialog v-model="showDialog" title="Add Author" width="60%" center>
+  <el-dialog v-model="showEditDialog" title="Edit Author" width="60%" center>
     <el-card>
       <el-row>
+        {{authorEditForm.author}}
         <el-col class="box-card">
-          <el-form ref="form" label-width="120px">
+          <el-form ref="form" :model="authorEditForm.author" label-width="120px">
             <el-row class="input-field">
               <el-col :span="6" class="text-align-right p-1">
                 <label>First Name: </label>
               </el-col>
               <el-col :span="10">
-                <el-input id="first_name" v-model="authorForm.first_name" type="string"
+                <el-input id="first_name" v-model="authorEditForm.author.first_name" type="string"
                           placeholder="Author First Name"></el-input>
               </el-col>
             </el-row>
@@ -19,7 +20,7 @@
                 <label>Last Name: </label>
               </el-col>
               <el-col :span="10">
-                <el-input id="last_name" v-model="authorForm.last_name" type="string"
+                <el-input id="last_name" v-model="authorEditForm.author.last_name" type="string"
                           placeholder="Author Last Name"></el-input>
               </el-col>
             </el-row>
@@ -29,7 +30,7 @@
                 <label>Contact No: </label>
               </el-col>
               <el-col :span="10">
-                <el-input id="contact_no" v-model="authorForm.contact_no" type="string"
+                <el-input id="contact_no" v-model="authorEditForm.author.contact_no" type="string"
                           placeholder="Author Contact No"></el-input>
               </el-col>
             </el-row>
@@ -39,7 +40,7 @@
                 <label>Address: </label>
               </el-col>
               <el-col :span="10">
-                <el-input id="contact_no" v-model="authorForm.address" :rows="2"
+                <el-input id="contact_no" v-model="authorEditForm.author.address" :rows="2"
                           type="textarea" placeholder="Enter Author address"></el-input>
               </el-col>
             </el-row>
@@ -49,7 +50,7 @@
     </el-card>
     <template #footer>
       <span class="dialog-footer">
-        <el-button type="primary" @click="saveAuthor">Save</el-button>
+        <el-button type="primary" @click="updateAuthor">Update</el-button>
         <el-button type="danger" @click="cancelForm">Cancel</el-button>
       </span>
     </template>
@@ -57,45 +58,44 @@
 </template>
 
 <script>
-import {reactive, inject} from "vue";
+import {computed, inject} from "vue";
   export default {
-    name: 'AddAuthor',
+    name: 'EditAuthor',
     components: {
 
     },
-    props: ["showDialog"],
-    emits: ["authors", "show-dialog"],
+    props: ["showEditDialog", "author"],
+    emits: ["authors", "edit-dialog"],
     setup(props, context){
       const $rest = inject('$rest');
-      const $handleError = inject('$handleError');
-      const authorForm = reactive({
-        first_name: '',
-        last_name: '',
-        contact_no: '',
-        address: '',
-      })
 
-      const saveAuthor = ()=> {
-        $rest.post(`authors/`, authorForm)
+      const authorEditForm = computed(() => {
+        return {
+          author: props.author
+        }
+      });
+
+      const updateAuthor = ()=> {
+        $rest.put(`authors/`+authorEditForm.value.author.id, authorEditForm.value.author)
             .then(response => {
               context.emit("authors");
             })
             .catch((errors) => {
-              $handleError(errors);
+              $rest.handleError(errors);
             })
             .always(() => {
-              context.emit("show-dialog", false);
+              context.emit("edit-dialog", false);
               $rest.loading = false;
             })
       }
 
       const cancelForm = ()=> {
-        context.emit("show-dialog", false);
+        context.emit("edit-dialog", false);
       }
 
       return {
-        authorForm,
-        saveAuthor,
+        authorEditForm,
+        updateAuthor,
         cancelForm
       }
     }

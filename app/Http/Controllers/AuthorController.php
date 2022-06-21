@@ -12,33 +12,50 @@ class AuthorController extends Controller
         return wp_send_json(Author::where('status', 'Active')->get());
     }
 
-    public function create()
-    {
-
-    }
-
     public function store(Request $request)
     {
+        $request->validate([
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'contact_no'    => 'required',
+            'address'       => 'required',
+        ]);
 
+        $author = Author::create($request->all());
+
+        if($author){
+            return [
+                'message' => 'Author created successfully'
+            ];
+        }else{
+             throw new \ErrorException('Something went wrong, Try again later');
+        }
     }
 
-    public function show(Author $author)
+    public function update(Request $request, $id)
     {
+        $update = Author::where('id', $id)->update($request->all());
 
+        if($update){
+            return [
+                'message' => 'Author updated successfully'
+            ];
+        }else{
+            throw new \ErrorException('Something went wrong, Try again later');
+        }
     }
 
-    public function edit()
+    public function destroy($id)
     {
+        $author = Author::find($id);
 
-    }
 
-    public function update(Author $author)
-    {
-
-    }
-
-    public function destroy(Author $author)
-    {
-
+        if($author->delete()){
+            return [
+                'message' => 'Author created successfully'
+            ];
+        }else{
+            throw new \ErrorException('Something went wrong, Try again later');
+        }
     }
 }

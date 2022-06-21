@@ -1,27 +1,33 @@
 <template>
-  <author-list :authors="filteredAuthors" @add-form="showAddForm"  @search="doSearch"></author-list>
+  <add-author  :showDialog="centerDialogVisible" @show-dialog="showAddForm" @authors="loadAuthors"></add-author>
+  <edit-author @shv-if="editForm" :showEditDialog="showEditDialog" :author="ExistingAuthor" @edit-dialog="showEditForm"></edit-author>
+  <author-list :authors="filteredAuthors" @authors="loadAuthors" @add-form="showAddForm" @existing-author="setExistingAuthor"  @search="doSearch"></author-list>
 </template>
 
 <script>
 import {computed, ref, inject} from "vue";
 
-  import AuthorList from './AuthorList.vue'
+import AuthorList from './AuthorList.vue'
+import AddAuthor from "./AddAuthor";
+import EditAuthor from "./EditAuthor";
+
   export default {
     name: 'Authors',
     components: {
+      EditAuthor,
+      AddAuthor,
       AuthorList
     },
-    props: [""],
-    emits: [""],
     setup(_, context){
       const $rest = inject('$rest');
       const Authors = ref([]);
       const search = ref('');
       const centerDialogVisible = ref(false);
       const showEditDialog = ref(false);
+      const editForm = ref(false);
+      const ExistingAuthor = ref({});
 
-      //Load all authors
-      (function(){
+      const loadAuthors = ()=> {
         $rest.get(`authors/`, {})
             .then(response => {
               Authors.value = response;
@@ -30,9 +36,12 @@ import {computed, ref, inject} from "vue";
               Rest.handleError(errors);
             })
             .always(() => {
-              console.log("ajax call done");
+
             })
-      })();
+      }
+
+      //Load all authors
+      loadAuthors();
 
       //Filter authors using search value
       const filteredAuthors = computed(function(){
@@ -50,6 +59,13 @@ import {computed, ref, inject} from "vue";
         showEditDialog.value = val;
       }
 
+      const setExistingAuthor = (row) => {
+        editForm.value = true;
+        centerDialogVisible.value = false;
+        showEditDialog.value = true;
+        ExistingAuthor.value = row;
+      }
+
       const doSearch = function(query){
         search.value = query;
       }
@@ -57,8 +73,14 @@ import {computed, ref, inject} from "vue";
       return {
         Authors,
         filteredAuthors,
+        centerDialogVisible,
+        loadAuthors,
         showAddForm,
+        editForm,
         showEditForm,
+        showEditDialog,
+        setExistingAuthor,
+        ExistingAuthor,
         doSearch
       }
     }

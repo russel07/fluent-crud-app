@@ -32,8 +32,7 @@ export default class FluentFramework {
     extendVueConstructor() {
         const self = this;
         app.provide('$rest', this.$rest);
-        app.provide('appVars', this.appVars);
-
+        app.provide('$handleError', this.handleError);
         app.mixin({
             methods: {
                 addFilter,

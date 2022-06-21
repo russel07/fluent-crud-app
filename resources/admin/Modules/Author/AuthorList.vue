@@ -58,7 +58,7 @@ export default {
   components: {
   },
   props: ["authors"],
-  emits: ["add-form", "edit-author", "search", "delete-author"],
+  emits: ["authors", "add-form", "existing-author", "search", "delete-author"],
   setup(_, context){
     const $rest = inject('$rest');
     const search = ref('');
@@ -67,8 +67,8 @@ export default {
       context.emit("add-form", true);
     }
 
-    const editForm = function (row){;
-      context.emit("edit-author", row);
+    const editForm = function (row){
+      context.emit("existing-author", row);
     }
 
     watch(search, (val) => {
@@ -78,9 +78,9 @@ export default {
     })
 
     const deleteTopic = (id)=> {
-      $rest.delete(`topics/`+id, {})
+      $rest.delete(`authors/`+id, {})
           .then(response => {
-            context.emit("topics", response);
+            context.emit("authors");
           })
           .catch((errors) => {
             $rest.handleError(errors);

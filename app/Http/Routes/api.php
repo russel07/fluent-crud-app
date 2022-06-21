@@ -6,4 +6,9 @@
 
 $router->get('/welcome', 'WelcomeController@index');
 
-$router->get('authors', 'AuthorController@index');
+$router->prefix('authors')->group(function($router) {
+    $router->get('/', 'AuthorController@index');
+    $router->post('/', 'AuthorController@store');
+    $router->put('/{id}', 'AuthorController@update');
+    $router->delete('/{id}', 'AuthorController@destroy');
+});
