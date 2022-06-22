@@ -9,7 +9,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        return wp_send_json(Author::where('status', 'Active')->get());
+        return wp_send_json(Author::where('status', 'Active')->with(['books'])->get());
     }
 
     public function store(Request $request)
@@ -32,6 +32,10 @@ class AuthorController extends Controller
         }
     }
 
+    public function show($id){
+        return wp_send_json(Author::with(['books'])->find($id));
+    }
+
     public function update(Request $request, $id)
     {
         $update = Author::where('id', $id)->update($request->all());
@@ -49,10 +53,9 @@ class AuthorController extends Controller
     {
         $author = Author::find($id);
 
-
         if($author->delete()){
             return [
-                'message' => 'Author created successfully'
+                'message' => 'Author deleted successfully'
             ];
         }else{
             throw new \ErrorException('Something went wrong, Try again later');

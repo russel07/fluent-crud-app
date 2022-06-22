@@ -33,7 +33,7 @@
                   icon="el-icon-info"
                   icon-color="red"
                   title="Are you sure to delete this?"
-                  @confirm="deleteTopic(scope.row.id)"
+                  @confirm="deleteAuthor(scope.row.id)"
               >
                 <template #reference>
                   <el-button
@@ -77,7 +77,7 @@ export default {
       }else context.emit("search", false);
     })
 
-    const deleteTopic = (id)=> {
+    const deleteAuthor = (id)=> {
       $rest.delete(`authors/`+id, {})
           .then(response => {
             context.emit("authors");
@@ -94,7 +94,7 @@ export default {
       search,
       showAddForm,
       editForm,
-      deleteTopic
+      deleteAuthor
     }
   }
 }
