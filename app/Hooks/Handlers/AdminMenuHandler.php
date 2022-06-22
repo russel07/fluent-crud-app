@@ -42,7 +42,12 @@ class AdminMenuHandler
             [
                 'key'       => 'author',
                 'label'     => __('Author', 'fluent-connect'),
-                'permalink' => $baseUrl . 'author'
+                'permalink' => $baseUrl . 'authors'
+            ],
+            [
+                'key'       => 'books',
+                'label'     => __('Books', 'fluent-connect'),
+                'permalink' => $baseUrl . 'books'
             ]
 	    ];
 

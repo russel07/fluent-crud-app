@@ -31,6 +31,7 @@ import EditAuthor from "./EditAuthor";
         $rest.get(`authors/`, {})
             .then(response => {
               Authors.value = response;
+              console.log(Authors.value);
             })
             .catch((errors) => {
               Rest.handleError(errors);

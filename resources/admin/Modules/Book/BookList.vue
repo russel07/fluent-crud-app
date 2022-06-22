@@ -1,32 +1,33 @@
 <template>
   <el-row>
-    <el-col :span="16" :offset="4">
+    <el-col :span="24">
       <el-card class="box-card">
         <template #header>
           <div class="card-header">
-            <el-col :md="18"><span>Authors</span></el-col>
+            <el-col :md="18"><span>Books</span></el-col>
             <el-col :md="6">
               <el-button class="text-right" size="mini" type="default" @click="showAddForm">Add New</el-button>
             </el-col>
           </div>
         </template>
         <el-table
-            :data="authors"
+            :data="books"
             style="width: 100%"
         >
           <el-table-column type="expand">
             <template #default="props">
-              <p v-for="(book, ind) in props.row.books">Book {{ind+1}}:
-                <router-link :to="{name: 'book', params: { id: book.id }}" tag="span">
-                  {{book.book_title}}
-                </router-link>
-              </p>
+              <p><b>Author Name: </b>
+                <router-link :to="{name: 'author', params: { id: props.row.author.id }}" tag="span">
+                  {{props.row.author.first_name}} {{props.row.author.last_name}}
+                </router-link></p>
+
+              <p><b>Author Contact: </b>{{props.row.author.contact_no}}</p>
+              <p><b>Author Address: </b>{{props.row.author.address}}</p>
             </template>
           </el-table-column>
-          <el-table-column label="First Name" prop="first_name" />
-          <el-table-column label="Last Name" prop="last_name" />
-          <el-table-column label="Contact No" prop="contact_no" />
-          <el-table-column label="Address" prop="address" />
+          <el-table-column label="Book Title" prop="book_title" />
+          <el-table-column label="Book Type" prop="book_type" />
+          <el-table-column label="Book Description" prop="book_description" />
           <el-table-column label="Status" prop="status" />
           <el-table-column align="right" width="180">
             <template #header>
@@ -42,7 +43,7 @@
                   icon="el-icon-info"
                   icon-color="red"
                   title="Are you sure to delete this?"
-                  @confirm="deleteAuthor(scope.row.id)"
+                  @confirm="deleteBook(scope.row.id)"
               >
                 <template #reference>
                   <el-button
@@ -63,11 +64,11 @@
 import {watch, ref, inject} from "vue";
 
 export default {
-  name: 'AuthorList',
+  name: 'BookList',
   components: {
   },
-  props: ["authors"],
-  emits: ["authors", "add-form", "existing-author", "search", "delete-author"],
+  props: ["books"],
+  emits: ["books", "add-form", "existing-book", "search", "delete-book"],
   setup(_, context){
     const $rest = inject('$rest');
     const search = ref('');
@@ -77,7 +78,7 @@ export default {
     }
 
     const editForm = function (row){
-      context.emit("existing-author", row);
+      context.emit("existing-book", row);
     }
 
     watch(search, (val) => {
@@ -86,10 +87,10 @@ export default {
       }else context.emit("search", false);
     })
 
-    const deleteAuthor = (id)=> {
-      $rest.delete(`authors/`+id, {})
+    const deleteBook = (id)=> {
+      $rest.delete(`books/`+id, {})
           .then(response => {
-            context.emit("authors");
+            context.emit("books");
           })
           .catch((errors) => {
             $rest.handleError(errors);
@@ -103,7 +104,7 @@ export default {
       search,
       showAddForm,
       editForm,
-      deleteAuthor
+      deleteBook
     }
   }
 }
