@@ -93,6 +93,8 @@ import {inject, ref, computed} from "vue";
     setup(props, context){
       const authors = ref([]);
       const $rest = inject('$rest');
+      const alert = inject('alert');
+      const { success } = alert();
       const $handleError = inject('$handleError');
 
       const bookEditForm = computed(() => {
@@ -122,6 +124,7 @@ import {inject, ref, computed} from "vue";
       const updateBook = ()=> {
         $rest.put(`books/`+bookEditForm.value.book.id, bookEditForm.value.book)
             .then(response => {
+              success(response.message);
               context.emit("books");
             })
             .catch((errors) => {

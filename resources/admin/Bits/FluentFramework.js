@@ -1,5 +1,6 @@
 import app from '@/admin/Bits/elements';
 import Rest from '@/admin/Bits/Rest';
+import AlertMessage from "@/admin/Bits/AlertMessage";
 
 import {
     applyFilters,
@@ -14,6 +15,7 @@ require('moment/locale/en-gb');
 moment.locale('en-gb');
 
 const appStartTime = new Date();
+
 
 
 export default class FluentFramework {
@@ -33,6 +35,8 @@ export default class FluentFramework {
         const self = this;
         app.provide('$rest', this.$rest);
         app.provide('$handleError', this.handleError);
+        app.provide('alert', AlertMessage);
+
         app.mixin({
             methods: {
                 addFilter,

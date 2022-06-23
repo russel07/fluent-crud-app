@@ -67,6 +67,7 @@ import {reactive, inject} from "vue";
     emits: ["authors", "show-dialog"],
     setup(props, context){
       const $rest = inject('$rest');
+      const alert = inject('alert');
       const $handleError = inject('$handleError');
       const authorForm = reactive({
         first_name: '',
@@ -75,12 +76,16 @@ import {reactive, inject} from "vue";
         address: '',
       })
 
+      const { success } = alert();
+
       const saveAuthor = ()=> {
         $rest.post(`authors/`, authorForm)
             .then(response => {
+              success(response.message);
               context.emit("authors");
             })
             .catch((errors) => {
+              console.log(errors);
               $handleError(errors);
             })
             .always(() => {

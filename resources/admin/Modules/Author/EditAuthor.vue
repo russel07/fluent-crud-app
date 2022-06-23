@@ -80,6 +80,8 @@ import {computed, inject} from "vue";
     emits: ["authors", "edit-dialog"],
     setup(props, context){
       const $rest = inject('$rest');
+      const alert = inject('alert');
+      const { success } = alert();
 
       const authorEditForm = computed(() => {
         return {
@@ -90,6 +92,7 @@ import {computed, inject} from "vue";
       const updateAuthor = ()=> {
         $rest.put(`authors/`+authorEditForm.value.author.id, authorEditForm.value.author)
             .then(response => {
+              success(response.message);
               context.emit("authors");
             })
             .catch((errors) => {

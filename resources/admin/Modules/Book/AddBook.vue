@@ -79,6 +79,8 @@ import {reactive, inject, ref} from "vue";
     setup(props, context){
       const authors = ref([]);
       const $rest = inject('$rest');
+      const alert = inject('alert');
+      const { success } = alert();
       const $handleError = inject('$handleError');
       const bookForm = reactive({
         book_title: '',
@@ -108,6 +110,7 @@ import {reactive, inject, ref} from "vue";
       const saveBook = ()=> {
         $rest.post(`books/`, bookForm)
             .then(response => {
+              success(response.message);
               context.emit("books");
             })
             .catch((errors) => {

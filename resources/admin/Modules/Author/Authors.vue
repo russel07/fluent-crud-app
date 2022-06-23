@@ -20,6 +20,7 @@ import EditAuthor from "./EditAuthor";
     },
     setup(_, context){
       const $rest = inject('$rest');
+      const $handleError = inject('$handleError');
       const Authors = ref([]);
       const search = ref('');
       const centerDialogVisible = ref(false);
@@ -34,7 +35,8 @@ import EditAuthor from "./EditAuthor";
               console.log(Authors.value);
             })
             .catch((errors) => {
-              Rest.handleError(errors);
+              console.log(errors);
+              $handleError(errors);
             })
             .always(() => {
 
