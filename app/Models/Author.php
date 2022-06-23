@@ -6,6 +6,11 @@ use FluentCrud\App\Models\Model;
 class Author extends Model
 {
     protected $table = 'fluent_crud_authors';
+    protected $appends = ['full_name'];
+
+    public function getFullNameAttribute() {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
 
     public function books()
     {

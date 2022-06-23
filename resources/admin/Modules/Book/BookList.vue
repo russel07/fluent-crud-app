@@ -73,7 +73,7 @@ export default {
     const $rest = inject('$rest');
     const search = ref('');
 
-    const showAddForm = function (){
+    const showAddForm = function (){console.log("clicked");
       context.emit("add-form", true);
     }
 

@@ -36,6 +36,10 @@ class AuthorController extends Controller
         return wp_send_json(Author::with(['books'])->find($id));
     }
 
+    public function showByName($name){
+        return wp_send_json(Author::where('first_name', 'LIKE' , "%$name%")->get());
+    }
+
     public function update(Request $request, $id)
     {
         $update = Author::where('id', $id)->update($request->all());

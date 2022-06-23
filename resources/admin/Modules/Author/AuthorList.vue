@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="16" :offset="4">
+    <el-col :span="20" :offset="2">
       <el-card class="box-card">
         <template #header>
           <div class="card-header">

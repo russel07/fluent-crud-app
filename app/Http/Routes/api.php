@@ -10,6 +10,7 @@ $router->prefix('authors')->group(function($router) {
     $router->get('/', 'AuthorController@index');
     $router->post('/', 'AuthorController@store');
     $router->get('/{id}', 'AuthorController@show');
+    $router->get('/search/{name}', 'AuthorController@showByName');
     $router->put('/{id}', 'AuthorController@update');
     $router->delete('/{id}', 'AuthorController@destroy');
 });

@@ -1,14 +1,17 @@
 <template>
+  <add-book :showDialog="centerDialogVisible" @show-dialog="showAddForm" @books="loadBooks"></add-book>
   <book-list :books="filteredBooks" @books="loadBooks" @add-form="showAddForm" @existing-author="setExistingBook"  @search="doSearch"></book-list>
 </template>
 
 <script>
 import {computed, ref, inject} from "vue";
 import BookList from "./BookList";
+import AddBook from "./AddBook";
 
   export default {
     name: 'Books',
     components: {
+      AddBook,
       BookList
 
     },
