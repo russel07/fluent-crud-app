@@ -40,7 +40,7 @@ class AdminMenuHandler
 			    'permalink' => $baseUrl
 		    ],
             [
-                'key'       => 'author',
+                'key'       => 'authors',
                 'label'     => __('Author', 'fluent-connect'),
                 'permalink' => $baseUrl . 'authors'
             ],

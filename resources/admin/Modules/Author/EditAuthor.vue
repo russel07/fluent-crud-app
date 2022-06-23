@@ -2,8 +2,8 @@
   <el-dialog v-model="showEditDialog" title="Edit Author" width="60%" center>
     <el-card>
       <el-row>
-        {{authorEditForm.author}}
         <el-col class="box-card">
+
           <el-form ref="form" :model="authorEditForm.author" label-width="120px">
             <el-row class="input-field">
               <el-col :span="6" class="text-align-right p-1">
@@ -44,6 +44,18 @@
                           type="textarea" placeholder="Enter Author address"></el-input>
               </el-col>
             </el-row>
+            <el-row class="input-field">
+              <el-col :span="6" class="text-align-right p-1">
+                <label>Status: </label>
+              </el-col>
+              <el-col :span="10">
+                <el-select id="status" v-model="authorEditForm.author.status" placeholder="Select Status">
+                  <el-option label="Active" value="Active"></el-option>
+                  <el-option label="Inactive" value="Inactive"></el-option>
+                </el-select>
+              </el-col>
+            </el-row>
+
           </el-form>
         </el-col>
       </el-row>

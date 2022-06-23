@@ -41,7 +41,7 @@ class BookController
 
     public function update(Request $request, $id)
     {
-        $update = Book::where('id', $id)->update($request->all());
+        $update = Book::where('id', $id)->update($request->only(['book_title', 'book_description', 'book_type', 'author_id', 'status']));
 
         if($update){
             return [

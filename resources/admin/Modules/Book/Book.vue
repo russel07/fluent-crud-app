@@ -1,4 +1,9 @@
 <template>
+  <el-breadcrumb separator="/">
+    <el-breadcrumb-item :to="{ path: '/books' }">Books</el-breadcrumb-item>
+    <el-breadcrumb-item>{{book.book_title}} </el-breadcrumb-item>
+  </el-breadcrumb>
+
   <el-card class="box-card" v-if="!notReady">
     <template #header>
       <div class="card-header">
@@ -81,5 +86,14 @@ export default {
 
 .item {
   margin-bottom: 18px;
+}
+
+.el-breadcrumb{
+  margin-bottom: 2%;
+  background: #fafafa;
+  padding: 2%;
+}
+.el-breadcrumb__inner.is-link, .el-breadcrumb__inner a{
+  color:blueviolet!important;
 }
 </style>

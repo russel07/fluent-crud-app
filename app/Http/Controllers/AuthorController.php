@@ -9,7 +9,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        return wp_send_json(Author::where('status', 'Active')->with(['books'])->get());
+        return wp_send_json(Author::with(['books'])->get());
     }
 
     public function store(Request $request)
@@ -37,12 +37,12 @@ class AuthorController extends Controller
     }
 
     public function showByName($name){
-        return wp_send_json(Author::where('first_name', 'LIKE' , "%$name%")->get());
+        return wp_send_json(Author::where('first_name', 'LIKE' , "%$name%")->where('status', 'Active')->get());
     }
 
     public function update(Request $request, $id)
     {
-        $update = Author::where('id', $id)->update($request->all());
+        $update = Author::where('id', $id)->update($request->except(['full_name']));
 
         if($update){
             return [

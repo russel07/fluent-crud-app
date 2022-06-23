@@ -1,6 +1,6 @@
 <template>
   <add-author  :showDialog="centerDialogVisible" @show-dialog="showAddForm" @authors="loadAuthors"></add-author>
-  <edit-author @shv-if="editForm" :showEditDialog="showEditDialog" :author="ExistingAuthor" @edit-dialog="showEditForm"></edit-author>
+  <edit-author v-if="editForm" :showEditDialog="showEditDialog" :author="ExistingAuthor" @edit-dialog="showEditForm"></edit-author>
   <author-list :authors="filteredAuthors" @authors="loadAuthors" @add-form="showAddForm" @existing-author="setExistingAuthor"  @search="doSearch"></author-list>
 </template>
 
