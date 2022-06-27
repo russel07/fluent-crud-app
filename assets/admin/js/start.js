@@ -28314,7 +28314,19 @@ __webpack_require__.r(__webpack_exports__);
         success(response.message);
         context.emit("authors");
       })["catch"](function (errors) {
-        showError(errors);
+        if (errors.responseJSON) {
+          var obj = errors.responseJSON;
+
+          for (var prop in obj) {
+            var msg = obj[prop];
+
+            for (var ind in msg) {
+              Errors.value[prop] = msg[ind];
+            }
+          }
+        } else {
+          Errors.value = errors;
+        }
       }).always(function () {});
     };
 

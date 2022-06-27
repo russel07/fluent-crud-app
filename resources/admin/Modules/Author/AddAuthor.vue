@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {reactive, inject, ref} from "vue";
+import {reactive, inject, ref, computed} from "vue";
 import ErrorMessage from "../../Components/ErrorMessage";
   export default {
     name: 'AddAuthor',
@@ -143,7 +143,18 @@ import ErrorMessage from "../../Components/ErrorMessage";
               context.emit("authors");
             })
             .catch((errors) => {
-              showError(errors);
+              if (errors.responseJSON) {
+                let obj = errors.responseJSON
+                for (const prop in obj) {
+                  let msg = obj[prop];
+                  for (const ind in msg) {
+                    Errors.value[prop] = msg[ind];
+                  }
+                }
+
+              }else{
+                Errors.value = errors;
+              }
             })
             .always(() => {
             })

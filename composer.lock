@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "wpfluent/framework",
-            "version": "1.0.7",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@github.com:wpfluent/framework.git",
-                "reference": "f81bd6a7f42fd7eb14d32a85fff515aa77b6e4fa"
+                "reference": "47b57bfeb2ecea5e2b00f5452559141873a8255c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpfluent/framework/zipball/f81bd6a7f42fd7eb14d32a85fff515aa77b6e4fa",
-                "reference": "f81bd6a7f42fd7eb14d32a85fff515aa77b6e4fa",
+                "url": "https://api.github.com/repos/wpfluent/framework/zipball/47b57bfeb2ecea5e2b00f5452559141873a8255c",
+                "reference": "47b57bfeb2ecea5e2b00f5452559141873a8255c",
                 "shasum": ""
             },
             "require": {
@@ -45,10 +45,10 @@
             ],
             "description": "A lightweight rest api based framework to build WordPress plugins.",
             "support": {
-                "source": "https://github.com/wpfluent/framework/tree/1.0.7",
+                "source": "https://github.com/wpfluent/framework/tree/1.0.13",
                 "issues": "https://github.com/wpfluent/framework/issues"
             },
-            "time": "2022-06-17T00:10:16+00:00"
+            "time": "2022-06-27T09:02:50+00:00"
         }
     ],
     "packages-dev": [],
