@@ -108,7 +108,6 @@ import {inject, ref, computed} from "vue";
           $rest.get(`authors/search/${query}`, {})
               .then(response => {
                 authors.value = response;
-                console.log(authors.value);
               })
               .catch((errors) => {
 

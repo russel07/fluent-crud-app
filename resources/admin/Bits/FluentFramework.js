@@ -1,6 +1,7 @@
 import app from '@/admin/Bits/elements';
 import Rest from '@/admin/Bits/Rest';
 import AlertMessage from "@/admin/Bits/AlertMessage";
+import HandleErrorMessage from "@/admin/Bits/HandleErrorMessage";
 
 import {
     applyFilters,
@@ -36,6 +37,7 @@ export default class FluentFramework {
         app.provide('$rest', this.$rest);
         app.provide('$handleError', this.handleError);
         app.provide('alert', AlertMessage);
+        app.provide('HandleErrorMessage', HandleErrorMessage);
 
         app.mixin({
             methods: {

@@ -9,7 +9,8 @@ class ShortCodeHandler
 {
     public function renderShortCode(){
         $user = AppHelper::getLoggedInUserInfo();
-        $needAuthentication = 'You have to log in to access portal';
+        $login_page = wp_login_url();
+        $needAuthentication = 'You have to log in to access portal click '. "<a href='$login_page'>Here</a> to login";
 
         $canAccess = apply_filters('fluent_crud_app/user_portal_access', [
             'message' => $needAuthentication
