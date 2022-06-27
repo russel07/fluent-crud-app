@@ -21,3 +21,7 @@ $app->addAction('admin_menu', 'AdminMenuHandler@add');
 
 // $app->addAction('init', 'CPTHandler@registerPostTypes');
 
+add_shortcode('fluent_crud_portal', function () {
+    return (new \FluentCrud\App\Hooks\Handlers\ShortCodeHandler())->renderShortCode();
+});
+

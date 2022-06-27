@@ -13,3 +13,9 @@
  * $app
  * @var WPFluent\Foundation\Application
  */
+
+/*
+add_filter('fluent_crud_app/user_portal_access', function ($data) {
+    $data["message"] = "This message is modified by filet";
+    return $data;
+}, 10, 2);*/
